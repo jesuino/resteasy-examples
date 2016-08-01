@@ -5,12 +5,27 @@
 	<artifactId>resteasy-jackson-date-format</artifactId>
 	<version>1</version>
 	<packaging>war</packaging>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
+		<version.jboss.bom.eap>6.3.0.GA</version.jboss.bom.eap>
+		<version.war.plugin>2.1.1</version.war.plugin>
+		<maven.compiler.target>1.6</maven.compiler.target>
+		<maven.compiler.source>1.6</maven.compiler.source>
+	</properties>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>org.jboss.spec</groupId>
-				<artifactId>jboss-javaee-6.0</artifactId>
-				<version>3.0.2.Final</version>
+				<groupId>org.jboss.bom.eap</groupId>
+				<artifactId>jboss-javaee-6.0-with-tools</artifactId>
+				<version>${version.jboss.bom.eap}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.bom.eap</groupId>
+				<artifactId>jboss-javaee-6.0-with-hibernate</artifactId>
+				<version>${version.jboss.bom.eap}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -21,31 +36,35 @@
 			<groupId>org.jboss.spec.javax.ws.rs</groupId>
 			<artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
 			<scope>provided</scope>
-		</dependency>	
-	
+		</dependency>
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.12</version>
-			<scope>provided</scope>			
-		</dependency>		
-
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
-	
 	<build>
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
-	     <plugin>
-	       <groupId>org.apache.maven.plugins</groupId>
-	       <artifactId>maven-war-plugin</artifactId>
-	       <configuration>
-		  <archive>
-		     <manifestEntries>
-		        <Dependencies>org.codehaus.jackson.jackson-core-asl</Dependencies>
-		        <Dependencies>org.codehaus.jackson.jackson-mapper-asl</Dependencies>
-		     </manifestEntries>
-		  </archive>
-	       </configuration>
-	     </plugin> 
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>${version.war.plugin}</version>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<archive>
+						<manifestEntries>
+							<Dependencies>org.codehaus.jackson.jackson-core-asl</Dependencies>
+							<Dependencies>org.codehaus.jackson.jackson-mapper-asl</Dependencies>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.jboss.as.plugins</groupId>
+				<artifactId>jboss-as-maven-plugin</artifactId>
+				<version>${version.jboss.maven.plugin}</version>
+			</plugin>
 		</plugins>
 	</build>
 </project>
