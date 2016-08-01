@@ -1,2 +1,2 @@
-# RESTEasy Examples
-RESTEasy examples mostly on JBoss EAP 6.
+# RESTEasy Examples running on JBoss EAP
+RESTEasy examples mostly for JBoss EAP 6.
