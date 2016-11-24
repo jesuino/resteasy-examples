@@ -1,0 +1,10 @@
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<deployment>
+		<dependencies>
+			<!-- Have to depend on this private module in order to use HTTP Client classes... -->
+			<module name="org.apache.httpcomponents" services="export"
+				export="true" />
+		</dependencies>
+	</deployment>
+</jboss-deployment-structure>
